@@ -2,59 +2,8 @@
 <html lang="he">
 <head>
 <meta charset="UTF-8">
-<title>בודק עוקצים ביתר</title>
-
-<style>
-  body {
-    font-family: Arial, sans-serif;
-    direction: rtl;
-    padding: 20px;
-    background: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDgMC6dlXSTUjgFLWG7dez3-pFDUjMmpF6e2WTuhDQ0rcgc81FD7SBwDE&s=10') no-repeat center center fixed;
-    background-size: cover;
-  }
-
-  .header {
-    text-align:center;
-    padding:20px;
-    background:rgba(255,244,229,0.95);
-    border-radius:10px;
-    border:2px solid #ffa500;
-    margin-bottom:20px;
-  }
-
-  .chat-box {
-    background:#fff;
-    padding:15px;
-    border-radius:10px;
-    border:1px solid #ccc;
-    max-width:600px;
-    margin:auto;
-    max-height:400px;
-    overflow-y:auto;
-  }
-
-  .message {
-    margin:10px 0;
-    padding:10px;
-    border-radius:8px;
-    white-space:pre-line;
-  }
-
-  .user { background:#e0f7fa; text-align:left; }
-  .bot { background:#fff3e0; text-align:right; }
-
-  input {
-    width:100%;
-    padding:10px;
-    margin-top:10px;
-    font-size:16px;
-    border-radius:5px;
-    border:1px solid #ccc;
-  }
-
-  .bold-text { font-weight: bold; }
-  .important { font-weight:bold; text-decoration: underline; color:#b30000; }
-</style>
+<title>בודק עוקצים בית"ר</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <!-- Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-QQLFBE4FMZ"></script>
@@ -65,24 +14,140 @@
   gtag('config', 'G-QQLFBE4FMZ');
 </script>
 
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    direction: rtl;
+    margin: 0;
+    padding: 0;
+    background: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDgMC6dlXSTUjgFLWG7dez3-pFDUjMmpF6e2WTuhDQ0rcgc81FD7SBwDE&s=10') no-repeat center center fixed;
+    background-size: cover;
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  .overlay {
+    background: rgba(255,255,255,0.85); /* יותר שקוף */
+    border: 2px solid black; /* מסגרת שחורה */
+    border-radius: 15px;
+    padding: 30px;
+    width: 90%;
+    max-width: 700px;
+    margin: auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-sizing: border-box;
+    text-align: center;
+  }
+
+  .header h1 {
+    font-size: 3em;
+    font-weight: bold;
+    margin: 0 0 10px 0;
+    border-bottom: 3px solid black;
+    padding-bottom: 10px;
+  }
+
+  .header p {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin: 10px 0;
+  }
+
+  .important {
+    font-weight: bold;
+    text-decoration: underline;
+    color: #b30000;
+    font-size: 1.3em;
+  }
+
+  .chat-box {
+    background: #fff;
+    padding: 15px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    max-height: 250px;
+    overflow-y: auto;
+    margin-top: 20px;
+    text-align: right;
+    direction: rtl;
+  }
+
+  .message {
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 8px;
+    white-space: pre-line;
+  }
+
+  .user { background:#e0f7fa; text-align:left; }
+  .bot { background:#fff3e0; text-align:right; }
+
+  input {
+    width: 100%;
+    padding: 12px;
+    margin-top: 15px;
+    font-size: 1.2em;
+    border-radius: 5px;
+    border:1px solid #ccc;
+    box-sizing: border-box;
+  }
+
+  button {
+    margin-top: 10px;
+    padding: 12px 20px;
+    font-size: 1.2em;
+    font-weight: bold;
+    border-radius: 5px;
+    border: none;
+    background-color: #ffa500;
+    cursor: pointer;
+  }
+
+  button:hover {
+    background-color: #e69500;
+  }
+
+  @media screen and (max-width: 600px) {
+    .overlay {
+      width: 95%;
+      padding: 20px;
+    }
+    .header h1 {
+      font-size: 2.2em;
+    }
+    .header p, .important {
+      font-size: 1.1em;
+    }
+    input, button {
+      font-size: 1em;
+      padding: 10px;
+    }
+    .chat-box {
+      max-height: 200px;
+    }
+  }
+</style>
 </head>
 <body>
 
-<div class="header">
-  <h1>🖤 בודק עוקצים בית"ר 🕎 💛</h1>
+<div class="overlay">
+  <div class="header">
+    <h1>🖤 בודק עוקצים בית"ר 🕎 💛</h1>
 
-  <p class="bold-text">
-    אתר זה בודק אנשים שעוקצים אוהדי בית"ר ירושלים לפי מספר טלפון.
-    כדי לבדוק אם המספר עוקץ שלחו אותו כאן, או שלחו "רשימה" כדי לראות את כל המספרים במאגר.
-  </p>
+    <p>אתר זה בודק אנשים שעוקצים אוהדי בית"ר ירושלים לפי מספר טלפון.<br>
+    כדי לבדוק אם המספר עוקץ שלחו אותו כאן, או שלחו "רשימה" כדי לראות את כל המספרים במאגר.</p>
 
-  <p class="important">
-    ⚠️ שימו לב!!! אם מספר מופיע כ"לא נמצא במאגר" זה לא אומר שהוא לא עוקץ, אלא שהוא לא נמצא במאגר.
-  </p>
+    <p class="important">⚠️ שימו לב!!! אם מספר מופיע כ"לא נמצא במאגר" זה לא אומר שהוא לא עוקץ, אלא שהוא לא נמצא במאגר.</p>
+  </div>
+
+  <div class="chat-box" id="chatBox"></div>
+
+  <input type="text" id="userInput" placeholder="הקלד מספר כאן...">
+  <button id="enterBtn">Enter</button>
 </div>
-
-<div class="chat-box" id="chatBox"></div>
-<input type="text" id="userInput" placeholder="הקלד מספר כאן...">
 
 <script>
 let phoneList = [
@@ -150,11 +215,12 @@ function checkNumber(input){
 }
 
 function getList(){
-  return "📋 רשימת מספרים במאגר:\n" + phoneList.join("\n");
+  return `📋 רשימת מספרים במאגר (סה"כ: ${phoneList.length} מספרים):\n` + phoneList.join("\n");
 }
 
 const chatBox = document.getElementById("chatBox");
 const input = document.getElementById("userInput");
+const enterBtn = document.getElementById("enterBtn");
 
 function addMessage(text, sender){
   let div = document.createElement("div");
@@ -164,17 +230,20 @@ function addMessage(text, sender){
   chatBox.scrollTop = chatBox.scrollHeight;
 }
 
+function handleInput(){
+  let val = input.value.trim();
+  if(!val) return;
+  addMessage(val,"user");
+  let response = val === "רשימה" ? getList() : checkNumber(val);
+  addMessage(response,"bot");
+  input.value="";
+}
+
 input.addEventListener("keydown", function(e){
-  if(e.key === "Enter"){
-    let val = input.value.trim();
-    if(!val) return;
-    addMessage(val,"user");
-    let response = val === "רשימה" ? getList() : checkNumber(val);
-    addMessage(response,"bot");
-    input.value="";
-  }
+  if(e.key === "Enter") handleInput();
 });
+enterBtn.addEventListener("click", handleInput);
 </script>
 
 </body>
-</html>
+  </html>
