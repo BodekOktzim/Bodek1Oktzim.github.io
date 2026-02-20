@@ -264,7 +264,7 @@ async function handleInput() {
             const resultsHTML = matches.map(phone => phone.split(cleanNum).join(`<span class="highlight-match">${cleanNum}</span>`)).join('<br>');  
             addMessage(`🚨 נמצאו ${matches.length} התאמות במאגר:\n\n${resultsHTML}`, "bot");  
         } else {  
-            addMessage("❌️ המספר לא נמצא במאגר.\n\nחשוב לזכור: לא בטוח שהוא אמין! תמיד תהיו זהירים.", "bot");  
+            addMessage(" המספר לא נמצא במאגר ❌️\n\nחשוב לזכור: לא בטוח שהוא אמין! תמיד תהיו זהירים.", "bot");  
         }  
     }  
   }  
