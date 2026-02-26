@@ -1,11 +1,12 @@
 {
   "name": "בודק עוקצים בית\"ר",
   "short_name": "בודק עוקצים",
-  "description": "מאגר רשמי לבדיקה של מספרי טלפון עוקצים.",
+  "description": "מאגר רשמי של מספרי טלפון עוקץ",
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#121212",
   "theme_color": "#fce300",
+  "orientation": "portrait",
   "icons": [
     {
       "src": "Bodek1Oktzim.png",
