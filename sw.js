@@ -1,9 +1,12 @@
-self.addEventListener('install', function(e) {
-  console.log('Service Worker: Installed');
+self.addEventListener('install', e=>{
+  console.log('Service Worker Installed');
+  self.skipWaiting();
 });
-self.addEventListener('activate', function(e) {
-  console.log('Service Worker: Activated');
+
+self.addEventListener('activate', e=>{
+  console.log('Service Worker Activated');
 });
-self.addEventListener('fetch', function(e) {
-  // אפשר להוסיף caching פה בעתיד
+
+self.addEventListener('fetch', e=>{
+  // כאן אפשר להוסיף קאשינג בעתיד
 });
