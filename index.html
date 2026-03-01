@@ -47,20 +47,17 @@ body {
   z-index:9999;
   transition:opacity 0.3s ease;
 }
-
 #splashScreen img{
   width:200px;
   margin-bottom:25px;
   animation:logoEntrance 0.9s cubic-bezier(.22,1.2,.4,1);
   filter:drop-shadow(0 0 25px rgba(252,227,0,0.6));
 }
-
 @keyframes logoEntrance{
   0%{transform:scale(0.6) rotate(-5deg);opacity:0}
   60%{transform:scale(1.1) rotate(2deg)}
   100%{transform:scale(1) rotate(0);opacity:1}
 }
-@keyframes spin{to{transform:rotate(360deg)}}
 
 /* Main Card */
 .main-card{
@@ -126,10 +123,6 @@ body {
   color:var(--beitar-yellow); 
   padding:0 4px; 
   border-radius:4px; 
-}
-
-/* אפקט הדגשה חי */
-.scam-highlight{
   animation:scamGlow 1s ease;
 }
 
@@ -177,7 +170,6 @@ iframe{ width:100%; height:calc(100% - 50px); border:none; }
 <!-- Splash -->
 <div id="splashScreen">
   <img src="Bodek1Oktzim.png" alt="Logo">
-  <div class="loader"></div>
 </div>
 
 <div class="main-card">
@@ -209,10 +201,10 @@ iframe{ width:100%; height:calc(100% - 50px); border:none; }
 </div>
 
 <script>
-// כל המספרים נשארים כפי שהם
+// כל המספרים
 const phoneList = ["0502029079","0502135910","0502241616","0502544716","0502728991","0502952995","0503116296","0503121247","0503238108","0503253232","0503406577","0503468010","0503838274","0503885739","0504258932","0504733494","0504781424","0505313055","0505704377","0505880655","0506000178","0506074436","0506447414","0506558175","0506699657","0506856767","0507303876","0507472051","0507498365","0507651810","0507759995","0508181332","0508392008","0508783426","0508941888","0509870708","0509035330","0509437608","0509579758","0509836595","0509841329","0515003585","0523181029","0523266921","0523476332","0523612753","0523616224","0523657636","0523793429","0523915108","0524000985","0524144262","0524300877","0524438889","0524457320","0524865153","0525262120","0525355471","0525385554","0525602569","0525853391","0525854678","0525949175","0526483521","0526497297","0527331413","0527921236","0527921506","0528030856","0528048148","0528255920","0528413270","0528648735","0528944716","0529140166","0529207383","0529323402","0529323793","0529323881","0529608474","0529711219","0532254550","0533038606","0534254657","0534580001","0534771365","0535353062","0535414742","0535471419","0538880345","0538898813","0539195213","0539213828","0539932776","0539985800","0542203465","0542249175","0542694767","0542697803","0543542493","0544300089","0544308925","0544376924","0544601861","0544728045","0544970382","0544977022","0545225639","0545858916","0546251061","0546359919","0546626648","0546711494","0546822420","0546854785","0546990756","0546993429","0547049497","0547151575","0547274334","0547291887","0547555154","0547868850","0548129999","0548232494","0548232502","0548232598","0548232683","0548244745","0549012423","0549054784","0549129258","0549129986","0549153899","0549319153","0552400877","0552400982","0552401230","0552467856","0552637788","0552674967","0555525504","0555606845","0556645939","0556654975","0556837259","0556854421","0557041287","0557049497","0557053630","0557227837","0557239960","0559256947","0559266317","0559431224","0559465904","0559556931","0559610748","0559831962","0559844585","0559871650","0584628466","0585807028","0586202520","+447482874377","+639306739785"];
 
-// פונקציות קיימות + הוספת שלבים נוספים
+// פונקציות
 function toggleReport(show){
   document.getElementById('reportSection').style.display=show?'block':'none';
   document.getElementById('mainSection').style.display=show?'none':'block';
@@ -237,17 +229,32 @@ function copyList(){
 }
 
 function addMessage(text,sender,showCopy=false){
-  const div=document.createElement("div"); div.className=`message ${sender}`; div.innerHTML=text;
+  const div=document.createElement("div"); 
+  div.className=`message ${sender}`; 
+  div.innerHTML=text;
   if(showCopy){
-    const btn=document.createElement("button"); btn.className="copy-btn"; btn.innerText="📋 העתק רשימה"; btn.onclick=copyList; div.appendChild(btn);
+    const btn=document.createElement("button"); 
+    btn.className="copy-btn"; 
+    btn.innerText="📋 העתק רשימה"; 
+    btn.onclick=copyList; 
+    div.appendChild(btn);
   }
-  const cb=document.getElementById("chatBox"); cb.appendChild(div); cb.scrollTop=cb.scrollHeight; return div;
+  const cb=document.getElementById("chatBox"); 
+  cb.appendChild(div); 
+  cb.scrollTop=cb.scrollHeight; 
+  return div;
 }
 
 async function handleInput(){
-  const input=document.getElementById("userInput"); const val=input.value.trim(); if(!val)return; addMessage(val,"user"); input.value="";
-  const checkingMsg=addMessage("בודק","bot"); checkingMsg.classList.add("checking");
-  await new Promise(r=>setTimeout(r,600)); checkingMsg.remove();
+  const input=document.getElementById("userInput"); 
+  const val=input.value.trim(); 
+  if(!val)return; 
+  addMessage(val,"user"); 
+  input.value="";
+  const checkingMsg=addMessage("בודק","bot"); 
+  checkingMsg.classList.add("checking");
+  await new Promise(r=>setTimeout(r,500)); // בדיקה קצרה
+  checkingMsg.remove();
   
   if(val==="רשימה"){
     addMessage("📊 **מאגר מספרי העוקץ ("+phoneList.length+"):**\n\n"+[...phoneList].sort().join('\n'),"bot",true);
@@ -257,7 +264,7 @@ async function handleInput(){
     else if(normalized.startsWith('972')&&normalized.length>=12) normalized='0'+normalized.slice(3);
     const cleanNum=normalized.replace(/[^\d+]/g,''); 
     if(cleanNum.length<3) addMessage("⚠️ החיפוש קצר מדי.","bot");
-    else if(phoneList.includes(cleanNum)) addMessage(`המספר ${cleanNum} עוקץ ⚠️`,"bot");
+    else if(phoneList.includes(cleanNum)) addMessage(`המספר <span class="highlight-match">${cleanNum}</span> עוקץ ⚠️`,"bot");
     else{
       const matchesScam=phoneList.filter(p=>p.includes(cleanNum));
       if(matchesScam.length>0){
@@ -272,11 +279,12 @@ async function handleInput(){
 document.getElementById("enterBtn").onclick=handleInput;
 document.getElementById("userInput").onkeypress=e=>{if(e.key==='Enter')handleInput();}
 
+// ספלאש מהיר
 window.addEventListener("load",()=>{
   setTimeout(()=>{
-    const splash=document.getElementById("splashScreen"); splash.style.opacity="0";
-    setTimeout(()=>splash.remove(),300);
-  },1000);
+    const splash=document.getElementById("splashScreen"); 
+    splash.style.opacity="0";
+    setTimeout(()=>splash.remove(),300); // fade out
+  },1000); // מקסימום 1 שניה
 });
-</script>
 </
