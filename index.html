@@ -268,15 +268,13 @@ document.getElementById("userInput").onkeypress=e=>{if(e.key==='Enter')handleInp
 window.addEventListener("load",()=>{
   const splash=document.getElementById("splashScreen");
   const main=document.querySelector(".main-card");
-  main.style.display="none";
-  splash.style.display="flex";
 
+  // מסכים הראשיים עדיין גלויים כדי שההודעות יופיעו
+  main.style.display="flex";
+  
   setTimeout(()=>{
     splash.style.transition="opacity 0.3s ease";
     splash.style.opacity="0";
-    setTimeout(()=>{splash.style.display="none"; main.style.display="flex";},300);
-  },800); //
+    setTimeout(()=>splash.remove(),300);
+  },1800); // זמן ספלאש
 });
-</script>
-</body>
-  </html>
