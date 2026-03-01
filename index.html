@@ -248,8 +248,13 @@ async function handleInput(){
 document.getElementById("enterBtn").onclick=handleInput;
 document.getElementById("userInput").onkeypress=e=>{if(e.key==='Enter')handleInput();}
 
-window.addEventListener("load",()=>{
-  setTimeout(()=>{
-    const splash=document.getElementById("splashScreen"); splash.style.opacity="0";
-    setTimeout(()=>splash.remove(),400);
-  },800
+window.addEventListener("load", () => {
+  // ספלאש נשאר 1 שניה
+  setTimeout(() => {
+    const splash = document.getElementById("splashScreen");
+    splash.style.opacity = "0"; // fade out
+    setTimeout(() => {
+      splash.remove(); 
+    }, 300); 
+  }, 1000); 
+});
