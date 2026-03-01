@@ -47,17 +47,15 @@ body {
   z-index:9999;
   transition:opacity 0.3s ease;
 }
-
 #splashScreen img{
-  width:220px; /* הגדלנו את הלוגו */
+  width:250px;
   margin-bottom:25px;
-  animation:logoEntrance 0.9s cubic-bezier(.22,1.2,.4,1);
-  filter:drop-shadow(0 0 35px rgba(252,227,0,0.8)); /* זוהר חזק יותר */
+  animation:logoEntrance 1s cubic-bezier(.22,1.2,.4,1);
+  filter:drop-shadow(0 0 35px rgba(252,227,0,0.8));
 }
-
 @keyframes logoEntrance{
   0%{transform:scale(0.6) rotate(-5deg);opacity:0}
-  60%{transform:scale(1.1) rotate(2deg)}
+  60%{transform:scale(1.15) rotate(2deg)}
   100%{transform:scale(1) rotate(0);opacity:1}
 }
 @keyframes spin{to{transform:rotate(360deg)}}
@@ -85,9 +83,9 @@ body {
 /* Header */
 .header{ padding:20px; text-align:center; }
 .header h1{
-  font-size:2.3em; font-weight:900;
+  font-size:2.5em; font-weight:900;
   color:var(--beitar-yellow);
-  text-shadow:0 0 10px var(--beitar-yellow), 0 0 20px rgba(252,227,0,0.3);
+  text-shadow:0 0 15px var(--beitar-yellow), 0 0 25px rgba(252,227,0,0.4);
 }
 
 /* Chat */
@@ -126,10 +124,6 @@ body {
   color:var(--beitar-yellow); 
   padding:0 4px; 
   border-radius:4px; 
-}
-
-/* אפקט הדגשה חי (עוקץ זוהר) */
-.scam-highlight{
   animation:scamGlow 1s ease;
 }
 @keyframes scamGlow{
@@ -138,16 +132,13 @@ body {
   100%{box-shadow:0 0 0px transparent;}
 }
 
-/* כפתור העתקה עם ✔️ ואנימציית לחיצה */
 .copy-btn{
   display:block; margin-top:8px; padding:6px 12px; font-size:0.85em;
   background:black; color:var(--beitar-yellow); border:1px solid var(--beitar-yellow);
-  border-radius:8px; cursor:pointer; font-weight:bold; transition:0.25s, transform 0.2s;
+  border-radius:8px; cursor:pointer; font-weight:bold; transition:0.2s, transform 0.2s;
 }
-.copy-btn.copied{
-  background:var(--beitar-yellow); color:black;
-  transform:scale(0.95);
-}
+.copy-btn:active{ transform:scale(0.95); }
+.copy-btn.copied{ background:green; color:white; border-color:green; }
 .copy-btn:hover{ transform:translateY(-2px) scale(1.05); box-shadow:0 6px 18px rgba(252,227,0,0.4); }
 
 .input-container{ padding:15px; background:rgba(0,0,0,0.6); display:flex; gap:10px; }
@@ -217,33 +208,19 @@ const phoneList = ["0502029079","0502135910","0502241616","0502544716","05027289
 
 function toggleReport(show){ document.getElementById('reportSection').style.display=show?'block':'none'; document.getElementById('mainSection').style.display=show?'none':'block'; }
 
-function shareSite(){ 
-  if(navigator.share){ 
-    navigator.share({ title:'בודק עוקצים בית"ר', text:'כנסו לבדוק מספרי טלפון במאגר העוקצים הרשמי של בית"ר!', url:window.location.href }).catch(err=>console.log(err)); 
-  } else { navigator.clipboard.writeText(window.location.href); alert("הקישור הועתק ללוח!"); } 
-}
+function shareSite(){ if(navigator.share){ navigator.share({ title:'בודק עוקצים בית"ר', text:'כנסו לבדוק מספרי טלפון במאגר העוקצים הרשמי של בית"ר!', url:window.location.href }).catch(err=>console.log(err)); } else { navigator.clipboard.writeText(window.location.href); alert("הקישור הועתק ללוח!"); } }
 
-// כפתור העתקה עם ✔️ ואנימציה
-function copyList(button){
-  navigator.clipboard.writeText("⚠️ רשימת מספרי עוקץ:\n"+[...phoneList].sort().join('\n')).then(()=>{
-      button.classList.add("copied");
-      button.innerText="✔ הועתק";
-      setTimeout(()=>{
-          button.classList.remove("copied");
-          button.innerText="📋 העתק רשימה";
-      },1500);
+function copyList(){ 
+  const btn=document.querySelector(".copy-btn"); 
+  navigator.clipboard.writeText("⚠️ רשימת מספרי עוקץ:\n"+[...phoneList].sort().join('\n'))
+  .then(()=>{
+    if(btn){ btn.innerText="✔️ הועתק"; btn.classList.add("copied"); setTimeout(()=>{ btn.innerText="📋 העתק רשימה"; btn.classList.remove("copied"); },1500); }
   });
 }
 
 function addMessage(text,sender,showCopy=false){
   const div=document.createElement("div"); div.className=`message ${sender}`; div.innerHTML=text;
-  if(showCopy){ 
-    const btn=document.createElement("button"); 
-    btn.className="copy-btn"; 
-    btn.innerText="📋 העתק רשימה"; 
-    btn.onclick=()=>copyList(btn); 
-    div.appendChild(btn); 
-  }
+  if(showCopy){ const btn=document.createElement("button"); btn.className="copy-btn"; btn.innerText="📋 העתק רשימה"; btn.onclick=copyList; div.appendChild(btn); }
   const cb=document.getElementById("chatBox"); cb.appendChild(div); cb.scrollTop=cb.scrollHeight; return div;
 }
 
@@ -259,9 +236,20 @@ async function handleInput(){
     else if(normalized.startsWith('972')&&normalized.length>=12) normalized='0'+normalized.slice(3);
     const cleanNum=normalized.replace(/[^\d+]/g,''); 
     if(cleanNum.length<3) addMessage("⚠️ החיפוש קצר מדי.","bot");
-    else if(phoneList.includes(cleanNum)) addMessage(`<span class="scam-highlight">המספר ${cleanNum} עוקץ ⚠️</span>`,"bot");
+    else if(phoneList.includes(cleanNum)) addMessage(`המספר <span class="highlight-match">${cleanNum}</span> עוקץ ⚠️`,"bot");
     else{
       const matchesScam=phoneList.filter(p=>p.includes(cleanNum));
       if(matchesScam.length>0){ let resultsHTML=`🚨 נמצאו התאמות עבור "${cleanNum}":\n\n`; resultsHTML+=matchesScam.map(p=>p.split(cleanNum).join(`<span class="highlight-match">${cleanNum}</span>`)).join('<br>'); addMessage(resultsHTML,"bot"); } 
       else addMessage(`המספר ${cleanNum} לא נמצא במאגר ❌️\n\nחשוב לזכור: לא בטוח שהוא אמין! תמיד תהיו זהירים.`,"bot");
     }
+  }
+}
+
+document.getElementById("enterBtn").onclick=handleInput;
+document.getElementById("userInput").onkeypress=e=>{if(e.key==='Enter')handleInput();}
+
+window.addEventListener("load",()=>{
+  setTimeout(()=>{
+    const splash=document.getElementById("splashScreen"); splash.style.opacity="0";
+    setTimeout(()=>splash.remove(),600);
+  },900
