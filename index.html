@@ -281,10 +281,20 @@ document.getElementById("userInput").onkeypress=e=>{if(e.key==='Enter')handleInp
 
 // ספלאש מהיר
 window.addEventListener("load",()=>{
+  const splash = document.getElementById("splashScreen");
+  const main = document.querySelector(".main-card");
+  
+  // מתחיל עם הספלאש
+  splash.style.opacity = "1";
+  main.style.display = "none"; // מסתיר את האתר עד שהספלאש ייעלם
+  
   setTimeout(()=>{
-    const splash=document.getElementById("splashScreen"); 
-    splash.style.opacity="0";
-    setTimeout(()=>splash.remove(),300); // fade out
-  },1000); // מקסימום 1 שניה
+    splash.style.transition = "opacity 0.5s ease";
+    splash.style.opacity = "0"; // מתחיל fade out
+    
+    setTimeout(()=>{
+      splash.remove(); // הסרה מה-DOM
+      main.style.display = "flex"; // מראה את האתר
+    }, 500); // חצי שניה fade out
+  }, 1000); // 1 שניה צפייה בלוגו
 });
-</
