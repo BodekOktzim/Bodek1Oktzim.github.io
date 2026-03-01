@@ -280,21 +280,25 @@ document.getElementById("enterBtn").onclick=handleInput;
 document.getElementById("userInput").onkeypress=e=>{if(e.key==='Enter')handleInput();}
 
 // ספלאש מהיר
-window.addEventListener("load",()=>{
+window.addEventListener("load", () => {
   const splash = document.getElementById("splashScreen");
   const main = document.querySelector(".main-card");
-  
-  // מתחיל עם הספלאש
+
+  // האתר מוסתר עד שהספלאש ייעלם
+  main.style.display = "none";
+
+  // מתחיל את האנימציה של הספלאש
   splash.style.opacity = "1";
-  main.style.display = "none"; // מסתיר את האתר עד שהספלאש ייעלם
-  
-  setTimeout(()=>{
-    splash.style.transition = "opacity 0.5s ease";
-    splash.style.opacity = "0"; // מתחיל fade out
-    
-    setTimeout(()=>{
-      splash.remove(); // הסרה מה-DOM
-      main.style.display = "flex"; // מראה את האתר
-    }, 500); // חצי שניה fade out
-  }, 1000); // 1 שניה צפייה בלוגו
+  splash.style.display = "flex";
+
+  // זמן צפייה בלוגו: 0.8 שניות בלבד
+  setTimeout(() => {
+    splash.style.transition = "opacity 0.3s ease";
+    splash.style.opacity = "0"; // fade out הספלאש
+
+    setTimeout(() => {
+      splash.style.display = "none"; // הסרה מוחלטת מה-DOM
+      main.style.display = "flex"; // מציג את האתר
+    }, 300); // התאמה ל-transition
+  }, 800); // זמן צפייה בלוגו
 });
